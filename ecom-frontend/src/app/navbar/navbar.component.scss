@@ -1,0 +1,66 @@
+/* Navbar spacing */
+.navbar {
+  padding: 10px 20px;
+}
+
+/* Search box size */
+.search-box {
+  width: 220px !important;
+}
+
+/* Theme button */
+.theme-btn {
+  border-radius: 50%;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  background: white;
+}
+
+/* Search dropdown */
+.search-dropdown {
+  position: absolute;
+  top: 70px;
+  right: 50px;
+  width: 250px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  z-index: 1000;
+}
+
+.search-box {
+  width: 220px;
+}
+
+.theme-btn {
+  border-radius: 50%;
+}
+.search-box {
+  width: 250px;
+}
+
+/* 🔥 DROPDOWN FIX */
+.search-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+
+  max-height: 300px;
+  overflow-y: auto;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* DARK THEME */
+.dark-theme .search-dropdown {
+  background: #1e1e1e;
+  color: white;
+}
+
+.dark-theme .list-group-item {
+  background: #1e1e1e;
+  color: white;
+  border-color: #333;
+}

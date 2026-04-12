@@ -1,0 +1,121 @@
+<nav class="navbar navbar-expand-lg fixed-top bg-light shadow-sm">
+  <div class="container-fluid">
+
+    <!-- Logo -->
+    <a class="navbar-brand fw-bold">Ecom</a>
+
+    <!-- Left Menu -->
+    <div class="collapse navbar-collapse">
+
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <li class="nav-item">
+          <a routerLink="/" class="nav-link">Home</a>
+        </li>
+
+        <li class="nav-item">
+          <a routerLink="/add_product" class="nav-link">Add Product</a>
+        </li>
+
+        <!-- ✅ FIXED DROPDOWN -->
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Categories
+          </a>
+
+          <ul class="dropdown-menu">
+            <li *ngFor="let category of ['Laptop','Headphone','Mobile','Electronics','Toys','Fashion']">
+              <button class="dropdown-item" (click)="selectCategory(category)">
+                {{ category }}
+              </button>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a routerLink="/orders" class="nav-link">Orders</a>
+        </li>
+
+      </ul>
+
+      <!-- ✅ RIGHT SIDE (FIXED ALIGNMENT) -->
+      <div class="d-flex align-items-center gap-3">
+
+  <!-- Theme -->
+  <button class="theme-btn" (click)="toggleTheme()">
+    {{ theme === 'dark-theme' ? '🌞' : '🌙' }}
+  </button>
+
+  <!-- Cart -->
+  <a routerLink="/cart" class="nav-link">🛒</a>
+
+  <!-- 🔥 SEARCH (FIXED) -->
+  <div class="position-relative">
+    <input
+      type="text"
+      class="form-control search-box"
+      placeholder="Search"
+      [(ngModel)]="input"
+      (input)="search(input)"
+    />
+
+    <div class="list-group search-dropdown" *ngIf="showSearch">
+      <a 
+        *ngFor="let item of searchResults"
+        class="list-group-item list-group-item-action"
+        [routerLink]="'/product/' + item.id"
+        (click)="showSearch = false"
+      >
+        {{ item.name }}
+      </a>
+    </div>
+  </div>
+
+</div>
+
+    </div>
+
+  </div>
+</nav>
+<!-- SEARCH RESULTS -->
+<div class="list-group position-absolute" *ngIf="showSearch">
+
+ <!-- Search wrapper -->
+<div class="position-relative">
+
+  <input
+    type="text"
+    class="form-control search-box"
+    placeholder="Search"
+    [(ngModel)]="input"
+    (input)="search(input)"
+  />
+
+  <!-- 🔥 SEARCH RESULTS -->
+  <div class="list-group search-dropdown" *ngIf="showSearch">
+
+    <a 
+      *ngFor="let item of searchResults"
+      class="list-group-item list-group-item-action"
+      [routerLink]="'/product/' + item.id"
+      (click)="showSearch = false"
+    >
+      {{ item.name }}
+    </a>
+
+    <!-- OPTIONAL -->
+    <div *ngIf="searchResults.length === 0" class="list-group-item">
+      No results found
+    </div>
+
+  </div>
+
+</div>
+
+</div>

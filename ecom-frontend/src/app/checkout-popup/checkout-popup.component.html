@@ -1,0 +1,66 @@
+<div *ngIf="show" class="modal fade show d-block" tabindex="-1">
+
+  <div class="modal-dialog modal-dialog-centered">
+
+    <div class="modal-content">
+
+      <!-- HEADER -->
+      <div class="modal-header">
+        <h5 class="modal-title">Checkout</h5>
+        <button type="button" class="btn-close" (click)="closePopup()"></button>
+      </div>
+
+      <!-- BODY -->
+      <div class="modal-body">
+
+        <div *ngFor="let item of cartItems" class="d-flex align-items-center mb-3">
+
+          <img [src]="item.imageUrl" width="70" class="me-3" />
+
+          <div>
+            <h6 class="mb-1">{{ item.name }}</h6>
+            <p class="mb-1">Qty: {{ item.quantity }}</p>
+            <p class="mb-0">₹ {{ item.price * item.quantity }}</p>
+          </div>
+
+        </div>
+
+        <hr />
+
+        <h5>Total: ₹ {{ totalPrice }}</h5>
+
+         <hr />
+         <form>
+  <input 
+    type="text" 
+    class="form-control" 
+    name="customerName"
+    placeholder="Enter Name"
+    [(ngModel)]="customerName"
+  /><br>
+
+  <input 
+    type="email" 
+    class="form-control" 
+    name="customerEmail"
+    placeholder="Enter Email"
+    [(ngModel)]="customerEmail"
+  /><br>
+</form>
+
+      </div>
+
+      <!-- FOOTER -->
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closePopup()">Close</button>
+        <button class="btn btn-success" (click)="confirmOrder()">Confirm</button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- BACKDROP -->
+<div *ngIf="show" class="modal-backdrop fade show"></div>

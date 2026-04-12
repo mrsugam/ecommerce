@@ -1,0 +1,40 @@
+<div class="product-container" *ngIf="product">
+
+  <!-- LEFT IMAGE -->
+  <div class="left">
+    <img [src]="imageUrl" alt="product image" />
+  </div>
+
+  <!-- RIGHT DETAILS -->
+  <div class="right">
+
+    <span class="category">{{ product.category }}</span>
+
+    <h1>{{ product.name }}</h1>
+
+    <h4>{{ product.brand }}</h4>
+
+    <p>{{ product.description }}</p>
+
+    <hr />
+
+    <h2>₹ {{ product.price }}</h2>
+
+    <button class="btn btn-primary" (click)="addToCart(product)">
+      Add to cart
+    </button>
+
+    <p><strong>Stock Available :</strong> {{ product.stockQuantity }}</p>
+
+    <p><strong>Product listed on :</strong> 
+      {{ product.releaseDate | date:'medium' }}
+    </p>
+
+    <div class="actions">
+      <button class="btn btn-primary" (click)="updateProduct()">Update</button>
+      <button class="btn btn-danger" (click)="deleteProduct()">Delete</button>
+    </div>
+
+  </div>
+
+</div>

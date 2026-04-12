@@ -1,0 +1,86 @@
+<div class="order-container">
+
+  <div class="order-card">
+
+    <div class="order-header">
+      <h2>Order Management</h2>
+      <h5>Orders ({{ orders.length }})</h5>
+    </div>
+
+    <table class="table table-striped">
+
+      <thead class="table-dark">
+        <tr>
+          <th>Order ID</th>
+          <th>Customer</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Items</th>
+          <th>Total</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+  <ng-container *ngFor="let order of orders">
+
+    <!-- MAIN ROW -->
+    <tr>
+
+      <td>{{ order.orderId }}</td>
+      <td>{{ order.customer }}<br>{{ order.email }}</td>
+      <td>{{ order.date | date:'medium' }}</td>
+
+      <td>
+        <span class="badge bg-primary">
+          {{ order.status }}
+        </span>
+      </td>
+
+      <td>{{ order.itemsCount || order.items?.length }}</td>
+      <td>₹ {{ order.total }}</td>
+
+      <!-- 🔥 NEW COLUMN -->
+      <td>
+        <button
+          class="btn btn-sm btn-outline-primary"
+          (click)="toggleDetails(order.orderId)">
+          {{ expandedOrderId === order.orderId ? 'Hide' : 'View' }}
+        </button>
+      </td>
+
+    </tr>
+
+    <!-- 🔥 EXPANDED ROW -->
+    <tr *ngIf="expandedOrderId === order.orderId">
+      <td colspan="7">
+
+        <div class="order-details">
+
+          <div *ngFor="let item of order.items" class="detail-item">
+
+            <img [src]="item.imageUrl" />
+
+            <div>
+              <p><b>{{ item.name }}</b></p>
+              <p>Qty: {{ item.quantity }}</p>
+              <p>₹ {{ item.price }}</p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </td>
+    </tr>
+
+  </ng-container>
+
+</tbody>
+
+    </table>
+
+  </div>
+
+</div>

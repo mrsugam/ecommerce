@@ -1,0 +1,50 @@
+<div class="cart-container">
+
+  <div class="shopping-cart">
+
+    <div class="title">Shopping Bag</div>
+
+    <div *ngIf="cartItems.length === 0">
+      <h4>Your cart is empty</h4>
+    </div>
+
+    <div *ngFor="let item of cartItems" class="item">
+
+      <img [src]="item.imageUrl" class="cart-item-image" />
+
+      <div class="description">
+        <span>{{ item.brand }}</span>
+        <span>{{ item.name }}</span>
+      </div>
+
+      <div class="quantity">
+        <button (click)="increase(item.id)">+</button>
+        <input [value]="item.quantity" readonly />
+        <button (click)="decrease(item.id)">-</button>
+      </div>
+
+      <div class="total-price">
+        ₹ {{ item.price * item.quantity }}
+      </div>
+
+      <button (click)="remove(item.id)">🗑</button>
+
+    </div>
+
+    <div class="total">
+      Total: ₹ {{ totalPrice }}
+    </div>
+
+<button class="btn btn-primary" (click)="openCheckout()">
+  Checkout
+</button>
+
+<app-checkout-popup
+  [show]="showPopup"
+  [cartItems]="cartItems"
+  [totalPrice]="totalPrice"
+  (close)="closePopup()"
+  (confirm)="onConfirmOrder($event)">
+</app-checkout-popup>
+
+</div>

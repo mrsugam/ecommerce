@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="center-container">
+
+    <form (ngSubmit)="update()">
+
+      <input class="form-control mt-2" [(ngModel)]="product.name" name="name" placeholder="Name" />
+
+      <input class="form-control mt-2" [(ngModel)]="product.brand" name="brand" placeholder="Brand" />
+
+      <input class="form-control mt-2" [(ngModel)]="product.description" name="description" placeholder="Description" />
+
+      <input class="form-control mt-2" [(ngModel)]="product.price" name="price" type="number" placeholder="Price" />
+
+      <select class="form-control mt-2" [(ngModel)]="product.category" name="category">
+        <option value="">Select</option>
+        <option value="laptop">Laptop</option>
+        <option value="mobile">Mobile</option>
+        <option value="headphone">Headphone</option>
+        <option value="electronics">Electronics</option>
+        <option value="toys">Toys</option>
+        <option value="fashion">Fashion</option>
+      </select>
+
+      <input class="form-control mt-2" [(ngModel)]="product.stockQuantity" name="stockQuantity" placeholder="Stock" />
+
+      <input class="form-control mt-2" [(ngModel)]="product.releaseDate" name="releaseDate" type="date" />
+
+      <input type="file" class="form-control mt-2" (change)="onFileChange($event)" />
+      <div *ngIf="previewUrl" class="mt-3 text-center">
+        <img [src]="previewUrl" width="200" style="border-radius:10px;" />
+      </div>
+
+      <button class="btn btn-primary mt-3">Update Product</button>
+
+    </form>
+
+  </div>
+</div>

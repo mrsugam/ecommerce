@@ -1,0 +1,42 @@
+<!-- ERROR -->
+<div *ngIf="isError" class="text-center" style="padding:10rem">
+  <img src="assets/images/unplugged.png" width="120" />
+  <h4>Something went wrong</h4>
+</div>
+
+<!-- LOADING -->
+<div *ngIf="isLoading && !isError" class="text-center" style="padding:10rem">
+  <h4>Loading products...</h4>
+</div>
+
+<!-- PRODUCTS -->
+<div class="grid" *ngIf="!isLoading && !isError">
+
+  <div *ngIf="products.length === 0" class="text-center">
+    <h2>No Products Available</h2>
+  </div>
+
+  <div *ngFor="let product of products" class="card">
+
+    <a [routerLink]="'/product/' + product.id" class="card-link">
+
+      <img [src]="product.imageUrl" class="card-img-top" />
+
+      <div class="card-body">
+        <h5>{{ product.name }}</h5>
+        <i>by {{ product.brand }}</i>
+        <hr />
+        <h5>₹ {{ product.price }}</h5>
+      </div>
+
+    </a>
+
+    <div class="card-footer">
+      <button class="btn btn-primary" (click)="addToCart(product)">
+        Add To Cart
+      </button>
+    </div>
+
+  </div>
+
+</div>
