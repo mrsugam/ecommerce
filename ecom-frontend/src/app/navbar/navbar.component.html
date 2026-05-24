@@ -53,7 +53,12 @@
   </button>
 
   <!-- Cart -->
-  <a routerLink="/cart" class="nav-link">🛒</a>
+  <a routerLink="/cart" class="nav-link cart-link" aria-label="Cart">
+    <span class="cart-icon">Cart</span>
+    <span class="badge rounded-pill bg-danger cart-badge" *ngIf="cartCount > 0">
+      {{ cartCount }}
+    </span>
+  </a>
 
   <!-- 🔥 SEARCH (FIXED) -->
   <div class="position-relative">

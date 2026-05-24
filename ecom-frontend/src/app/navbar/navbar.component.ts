@@ -22,19 +22,24 @@ export class NavbarComponent implements OnInit {
   input = '';
   searchResults: any[] = [];
   showSearch = false;
+  cartCount = 0;
 
   constructor(private service: AppService) {
     document.body.className = this.theme;
   }
 
   ngOnInit() {
-  this.searchSubject.pipe(debounceTime(300))
-    .subscribe(value => {
-      this.service.searchProducts(value).subscribe(res => {
-        this.searchResults = res;
+    this.searchSubject.pipe(debounceTime(300))
+      .subscribe(value => {
+        this.service.searchProducts(value).subscribe(res => {
+          this.searchResults = res;
+        });
       });
+
+    this.service.cart$.subscribe(cart => {
+      this.cartCount = cart.reduce((total, item) => total + Number(item.quantity || 0), 0);
     });
-}
+  }
 
 search(value: string) {
   this.input = value;

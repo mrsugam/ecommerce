@@ -1,4 +1,3 @@
-/* 🔥 PAGE CENTERING */
 .order-container {
   display: flex;
   justify-content: center;
@@ -6,21 +5,16 @@
   padding: 120px 20px 40px;
 }
 
-/* 🔥 CARD */
 .order-card {
   width: 100%;
   max-width: 1100px;
   border-radius: 12px;
   padding: 20px;
-
-  /* ✅ DEFAULT LIGHT */
   background: #ffffff;
   color: #000;
-
-  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* HEADER */
 .order-header {
   margin-bottom: 20px;
 }
@@ -34,127 +28,6 @@
   color: gray;
 }
 
-/* 🔥 TABLE */
-.order-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-/* HEADER */
-.order-table thead {
-  background: #004085;
-  color: white;
-}
-
-.order-table th {
-  padding: 12px;
-  text-align: left;
-}
-
-/* BODY */
-.order-table td {
-  padding: 12px;
-  border-bottom: 1px solid #eee;
-}
-
-/* ROW HOVER */
-.order-table tbody tr:hover {
-  background: #f5f7fa;
-}
-
-/* STATUS BADGES */
-.status {
-  padding: 5px 10px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 500;
-}
-
-.pending {
-  background: #fff3cd;
-  color: #856404;
-}
-
-.delivered {
-  background: #d4edda;
-  color: #155724;
-}
-
-.shipped {
-  background: #cce5ff;
-  color: #004085;
-}
-
-/* DELETE BUTTON */
-.btn-delete {
-  background: #dc3545;
-  border: none;
-  padding: 6px 12px;
-  color: white;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.btn-delete:hover {
-  background: #b52a37;
-}
-
-/* EMPTY STATE */
-.empty {
-  text-align: center;
-  padding: 20px;
-  color: gray;
-}
-
-
-
-
-
-
-
-/* =========================
-   🌙 DARK THEME (FINAL FIX)
-========================= */
-
-.dark-theme .order-card {
-  background: #1e1e1e !important;   /* ✅ FIX */
-  color: #ffffff !important;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
-}
-
-.dark-theme .order-header h2 {
-  color: #ffffff !important;
-}
-
-.dark-theme .order-header h5 {
-  color: #bbbbbb !important;
-}
-
-/* TABLE */
-.dark-theme .order-table thead {
-  background: #2c2c2c;
-  color: #ffffff;
-}
-
-.dark-theme .order-table td {
-  border-bottom: 1px solid #333;
-}
-
-.dark-theme .order-table tbody tr {
-  background: #1e1e1e;
-}
-
-.dark-theme .order-table tbody tr:hover {
-  background: #2a2a2a;
-}
-
-.order-header h2{
-    color: #000 !important;
-}
-.order-header h5{
-    color: #000 !important;
-}
-
 .order-details {
   display: flex;
   flex-wrap: wrap;
@@ -166,7 +39,6 @@
   display: flex;
   align-items: center;
   gap: 10px;
-
   background: #f8f9fa;
   padding: 10px;
   border-radius: 8px;
@@ -176,9 +48,4 @@
   width: 60px;
   height: 60px;
   object-fit: cover;
-}
-
-/* DARK MODE */
-.dark-theme .detail-item {
-  background: #2a2a2a;
 }

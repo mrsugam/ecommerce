@@ -27,32 +27,39 @@ export class CartComponent implements OnInit {
       this.cartItems = cart;
       this.calculateTotal();
     });
+
+    this.service.refreshCartImages().subscribe();
   }
 
-  // ➕ Increase quantity
   increase(id: number) {
+    const selectedItem = this.cartItems.find(item => item.id === id);
+
+    if (selectedItem && !this.canIncrease(selectedItem)) {
+      this.showStockWarning(selectedItem);
+      return;
+    }
+
     this.cartItems = this.cartItems.map(item =>
       item.id === id ? { ...item, quantity: item.quantity + 1 } : item
     );
+    this.service.updateCart(this.cartItems);
     this.calculateTotal();
   }
 
-  // ➖ Decrease quantity
   decrease(id: number) {
     this.cartItems = this.cartItems.map(item =>
       item.id === id
         ? { ...item, quantity: Math.max(item.quantity - 1, 1) }
         : item
     );
+    this.service.updateCart(this.cartItems);
     this.calculateTotal();
   }
 
-  // ❌ Remove item
   remove(id: number) {
     this.service.removeFromCart(id);
   }
 
-  // 💰 Total calculation
   calculateTotal() {
     this.totalPrice = this.cartItems.reduce(
       (acc, item) => acc + item.price * item.quantity,
@@ -60,38 +67,66 @@ export class CartComponent implements OnInit {
     );
   }
 
-  // 🛒 Open popup
   openCheckout() {
     if (this.cartItems.length === 0) {
       alert('Cart is empty');
       return;
     }
+
+    const overStockItem = this.cartItems.find(item => item.quantity > this.getStockQuantity(item));
+    if (overStockItem) {
+      this.showStockWarning(overStockItem);
+      return;
+    }
+
     this.showPopup = true;
   }
 
-  // ❌ Close popup
   closePopup() {
     this.showPopup = false;
   }
 
   onConfirmOrder(data: any) {
+    const overStockItem = this.cartItems.find(item => item.quantity > this.getStockQuantity(item));
+    if (overStockItem) {
+      this.showStockWarning(overStockItem);
+      return;
+    }
 
-  const orderPayload = {
-    customerName: data.customer,   // match backend
-    email: data.email,
-    items: this.cartItems.map(item => ({
-      productId: item.id,
-      quantity: item.quantity
-    }))
-  };
+    const orderPayload = {
+      customerName: data.customer,
+      email: data.email,
+      items: this.cartItems.map(item => ({
+        productId: item.id,
+        quantity: item.quantity
+      }))
+    };
 
-  this.service.createOrder(orderPayload).subscribe(res => {
-    console.log('Order placed', res);
+    this.service.createOrder(orderPayload).subscribe(res => {
+      console.log('Order placed', res);
 
-    this.service.clearCart();      // optional
-    this.service.getOrders().subscribe(); // refresh orders
-    this.showPopup = false;
+      this.service.clearCart();
+      this.service.getOrders().subscribe();
+      this.showPopup = false;
+    });
+  }
 
-  });
-}
+  getStockQuantity(item: any) {
+    return this.service.getStockQuantity(item);
+  }
+
+  canIncrease(item: any) {
+    return item.quantity < this.getStockQuantity(item);
+  }
+
+  private showStockWarning(item: any) {
+    this.toastr.warning(
+      `Only ${this.getStockQuantity(item)} ${item.name} available in stock`,
+      'Stock limit',
+      {
+        timeOut: 2000,
+        positionClass: 'toast-top-right'
+      }
+    );
+  }
 }

@@ -3,12 +3,10 @@
   gap: 50px;
   padding: 120px 60px;
   min-height: 100vh;
-
-  background: #f5f5f5;   /* ✅ LIGHT DEFAULT */
+  background: #f5f5f5;
   color: #000;
 }
 
-/* LEFT IMAGE */
 .left {
   flex: 1;
   display: flex;
@@ -22,7 +20,6 @@
   object-fit: contain;
 }
 
-/* RIGHT */
 .right {
   flex: 1;
   display: flex;
@@ -30,14 +27,12 @@
   gap: 10px;
 }
 
-/* CATEGORY */
 .category {
   color: #1976d2;
   font-size: 12px;
   text-transform: uppercase;
 }
 
-/* TEXT */
 .right h1 {
   font-size: 40px;
 }
@@ -50,12 +45,10 @@
   color: #666;
 }
 
-/* PRICE */
 .right h2 {
   margin-top: 10px;
 }
 
-/* BUTTON */
 button {
   width: 180px;
   margin-top: 10px;
@@ -69,19 +62,4 @@ button {
 
 hr {
   border-color: #ccc;
-}
-
-/* 🌙 DARK THEME */
-.dark-theme .product-container {
-  background: #121212;
-  color: white;
-}
-
-.dark-theme .right h4,
-.dark-theme .right p {
-  color: #bbb;
-}
-
-.dark-theme hr {
-  border-color: #444;
 }

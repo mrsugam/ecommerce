@@ -22,23 +22,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.service.getProducts().subscribe({
       next: (data: any[]) => {
-        Promise.all(
-          data.map((p: any) =>
-            fetch(`http://localhost:8080/api/product/${p.id}/image`)
-              .then(res => res.blob())
-              .then(blob => ({
-                ...p,
-                imageUrl: URL.createObjectURL(blob)
-              }))
-              .catch(() => ({
-                ...p,
-                imageUrl: 'https://via.placeholder.com/200'
-              }))
-          )
-        ).then(updated => {
-          this.products = updated;
-          this.isLoading = false;
-        });
+        this.products = data;
+        this.isLoading = false;
       },
       error: () => {
         this.isError = true;
@@ -48,14 +33,25 @@ export class HomeComponent implements OnInit {
   }
 
   addToCart(product: any) {
-    this.service.addToCart(product);
-    this.toastr.success(
-    `${product.name} added to cart 🛒`,
-    'Success',
-    {
+    const result = this.service.addToCart(product);
+    const toastOptions = {
       timeOut: 2000,
       positionClass: 'toast-top-right'
+    };
+
+    if (!result.added) {
+      this.toastr.warning(result.message, 'Stock limit', toastOptions);
+      return;
     }
-  );
+
+    this.toastr.success(result.message, 'Success', toastOptions);
+  }
+
+  canAddToCart(product: any) {
+    return this.service.canAddToCart(product);
+  }
+
+  isInStock(product: any) {
+    return this.service.isInStock(product);
   }
 }

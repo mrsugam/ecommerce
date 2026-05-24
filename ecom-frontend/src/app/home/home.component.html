@@ -32,8 +32,11 @@
     </a>
 
     <div class="card-footer">
-      <button class="btn btn-primary" (click)="addToCart(product)">
-        Add To Cart
+      <button
+        class="btn btn-primary"
+        [disabled]="!canAddToCart(product)"
+        (click)="addToCart(product)">
+        {{ isInStock(product) ? 'Add To Cart' : 'Out of Stock' }}
       </button>
     </div>
 

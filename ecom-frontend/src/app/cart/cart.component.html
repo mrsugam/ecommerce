@@ -18,7 +18,7 @@
       </div>
 
       <div class="quantity">
-        <button (click)="increase(item.id)">+</button>
+        <button [disabled]="!canIncrease(item)" (click)="increase(item.id)">+</button>
         <input [value]="item.quantity" readonly />
         <button (click)="decrease(item.id)">-</button>
       </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppService } from '../service/app.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product',
@@ -13,12 +14,12 @@ import { AppService } from '../service/app.service';
 export class ProductComponent implements OnInit {
 
   product: any;
-  imageUrl = '';
 
   constructor(
     private route: ActivatedRoute,
     private service: AppService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -30,17 +31,29 @@ export class ProductComponent implements OnInit {
       error: (err) => console.error(err)
     });
 
-    // ✅ Get image
-    this.service.getProductImage(id!).subscribe({
-      next: (blob) => {
-        this.imageUrl = URL.createObjectURL(blob);
-      },
-      error: (err) => console.error(err)
-    });
   }
 
   addToCart(product: any) {
-    this.service.addToCart(product);
+    const result = this.service.addToCart(product);
+    const toastOptions = {
+      timeOut: 2000,
+      positionClass: 'toast-top-right'
+    };
+
+    if (!result.added) {
+      this.toastr.warning(result.message, 'Stock limit', toastOptions);
+      return;
+    }
+
+    this.toastr.success(result.message, 'Success', toastOptions);
+  }
+
+  canAddToCart(product: any) {
+    return this.service.canAddToCart(product);
+  }
+
+  isInStock(product: any) {
+    return this.service.isInStock(product);
   }
 
   updateProduct() {
@@ -60,7 +73,10 @@ export class ProductComponent implements OnInit {
     },
     error: (err) => {
       console.error(err);
-      alert('❌ Delete failed');
+      this.toastr.error('Delete failed', 'Error', {
+        timeOut: 2000,
+        positionClass: 'toast-top-right'
+      });
     }
   });
 }
